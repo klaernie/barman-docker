@@ -46,7 +46,6 @@ RUN bash -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg ma
 
 # Set up some defaults for file/directory locations used in entrypoint.sh.
 ENV \
-	BARMAN_VERSION=3.5.0 \
 	BARMAN_CRON_SRC=/private/cron.d \
 	BARMAN_DATA_DIR=/var/lib/barman \
 	BARMAN_LOG_DIR=/var/log/barman \
@@ -69,7 +68,7 @@ ENV \
     BARMAN_EXPORTER_CACHE_TIME=3600
 VOLUME ${BARMAN_DATA_DIR}
 
-COPY install_barman.sh /tmp/
+COPY requirements.txt install_barman.sh /tmp/
 RUN /tmp/install_barman.sh && rm /tmp/install_barman.sh
 COPY barman.conf.template /etc/barman.conf.template
 COPY pg.conf.template /etc/barman/barman.d/pg.conf.template
